@@ -1,4 +1,4 @@
-package br.edu.infmg.poo2.bean;
+package br.edu.ifnmg.poo2.bean;
 
 import java.io.Serializable;
 import java.util.Calendar;

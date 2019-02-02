@@ -19,7 +19,7 @@ import javax.persistence.ForeignKey;
 
 
 @MappedSuperclass
-public class User implements Serializable{
+public class Pessoa implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -28,13 +28,10 @@ public class User implements Serializable{
 	private Long id;
 	
 	@Column(length = 20, nullable = false, unique = true)
-	private String login;
+	private String cpf;
 	
-	@Column(length = 50, nullable = false)
-	private String password_hash;
-	
-	@Column(length = 50, nullable = false, unique = true)
-	private String email;
+	@Column(length = 15, nullable = false, unique = true)
+	private String rg;
 	
 	@Column(length = 50, nullable = false)
 	private String first_name;
@@ -47,7 +44,7 @@ public class User implements Serializable{
 	private Address address;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", nullable = true, foreignKey = @ForeignKey(name = "fk_user"))
+	@JoinColumn(name = "pessoa_id", nullable = true, foreignKey = @ForeignKey(name = "fk_pessoa"))
 	private List<ContactNumber> contactNumbers = new ArrayList<>();
 
 	public Long getId() {
@@ -58,28 +55,20 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
-	public String getPassword_hash() {
-		return password_hash;
+	public String getRg() {
+		return rg;
 	}
 
-	public void setPassword_hash(String password_hash) {
-		this.password_hash = password_hash;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
 	public String getFirst_name() {
@@ -130,7 +119,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Pessoa other = (Pessoa) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

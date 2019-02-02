@@ -10,29 +10,40 @@ import javax.persistence.NamedQueries;
 @NamedQueries({
 	
 })
-public class Secretary extends User implements Serializable{
+public class Secretary extends Pessoa implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Column(length = 20, nullable = false, unique = true)
-	private String cpf;
+	private String login;
 	
-	@Column(length = 15, nullable = false, unique = true)
-	private String rg;
+	@Column(length = 50, nullable = false)
+	private String password_hash;
+	
+	@Column(length = 50, nullable = false, unique = true)
+	private String email;
 
-	public String getCpf() {
-		return cpf;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getRg() {
-		return rg;
+	public String getPassword_hash() {
+		return password_hash;
 	}
 
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setPassword_hash(String password_hash) {
+		this.password_hash = password_hash;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

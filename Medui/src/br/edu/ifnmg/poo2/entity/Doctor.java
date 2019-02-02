@@ -8,13 +8,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
-	
+	@NamedQuery(name = "allDoctors", // 
+			query = "select d from Doctor d")
 })
-public class Doctor extends User implements Serializable{
+public class Doctor extends Pessoa implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +25,9 @@ public class Doctor extends User implements Serializable{
 	
 	@Column(length = 30, nullable = false, unique = true)
 	private String crm_number;
+	
+	@Column(length = 50, nullable = false)
+	private String specialty;
 	
 	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
 	private List<Appointment> appointments = new ArrayList<>();
@@ -41,6 +46,14 @@ public class Doctor extends User implements Serializable{
 
 	public void setCrm_number(String crm_number) {
 		this.crm_number = crm_number;
+	}
+
+	public String getSpecialty() {
+		return specialty;
+	}
+
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
 	}
 
 	public List<Appointment> getAppointments() {

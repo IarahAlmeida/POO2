@@ -22,15 +22,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
 	
 })
-public class Patient extends User implements Serializable{
+public class Patient extends Pessoa implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
-	@Column(length = 20, nullable = false, unique = true)
-	private String cpf;
-	
-	@Column(length = 15, nullable = false, unique = true)
-	private String rg;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
@@ -48,22 +42,6 @@ public class Patient extends User implements Serializable{
 	
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
 	private List<Appointment> appointments = new ArrayList<>();
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
 
 	public Date getBirthdate() {
 		return birthdate;

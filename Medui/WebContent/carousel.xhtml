@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/generic.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    
+    <ui:define name="content">
+        <style type="text/css">
+     .value {
+        font-weight: bold;
+    }
+     
+    .ui-carousel {
+        margin-bottom: 20px;
+    }
+    
+    .ui-panel, div.ui-state-hover {
+                margin: 10px;
+                width:200px;
+            }
+             
+            .ui-dashboard-column {
+                width:220px;
+            }
+        body .ui-panelgrid .ui-panelgrid-cell:last-child {
+        background-color: #ffffff;
+    }
+	</style> 
+	
+   	<h:form id="form">
+    <p:carousel value="#{carouselView.docs}" headerText="Doctors" var="doc" itemStyle="text-align:center" responsive="true">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                <p:graphicImage library="images" name="#{doc.specialty}.png"/> 
+            </f:facet>	
+            	<h:outputText value="Name:" />
+            	<h:outputText value="#{doc.first_name}" />
+            	
+            	<h:outputText value="Last Name:" />
+            	<h:outputText value="#{doc.last_name}" />
+            	
+            	<h:outputText value="Specialty:" />
+            	<h:outputText value="#{doc.specialty}" />
+        </p:panelGrid>
+    </p:carousel>
+    </h:form>
+    
+    <h:form >
+        <p:growl id="msgs" showDetail="true" />
+ 
+        <p:dashboard id="board" model="#{dashboardView.model}">
+            <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+ 
+            <p:panel id="sports" header="Bottun">
+                <p:button value="Bookmark" icon="fa fa-arrow-circle-down" style="margin-right:20px;">
+				    <f:param name="productId" value="10" />
+				</p:button>
+            </p:panel>
+ 
+            <p:panel id="finance" header="Imagem">
+            	<h:form>
+            	<p:graphicImage library="images" name="logo.png" width="80%"/> 
+            	</h:form>
+            </p:panel>
+ 
+            <p:panel id="lifestyle" header="Lifestyle">
+                <h:form>
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+		    <p:panelMenu style="width: 165px">
+		    
+				<p:submenu label="Paciente">
+					<p:menuitem value="Criar" action="#{menuView.save}" icon="fa fa-user" url="/patient/create.xhtml"/>
+       				<p:menuitem value="Buscar" action="#{menuView.update}" icon="fa fa-user"/>
+				</p:submenu>
+				
+				<p:submenu label="Médicos">
+					<p:menuitem value="Criar" action="#{menuView.save}" icon="fa fa-user-md" url="/doctor/create.xhtml" />
+       				<p:menuitem value="Buscar" action="#{menuView.update}" icon="fa fa-user-md" />
+				</p:submenu>
+				
+				<p:submenu label="Consultas">
+					<p:menuitem value="Criar" action="#{menuView.save}" icon="fa fa-heartbeat" url="/appointment/create.xhtml"/>
+      				<p:menuitem value="Buscar" action="#{menuView.update}"  icon="fa fa-heartbeat" />
+				</p:submenu>
+				
+			</p:panelMenu>
+   		</h:form>
+            </p:panel>
+ 
+            <p:panel id="weather" header="Weather">
+                <h:outputText value="Weather Content" />
+            </p:panel>
+ 
+            <p:panel id="politics" header="Politics">
+                <h:outputText value="Politics Content" />
+            </p:panel>
+        </p:dashboard>
+    </h:form>
+    </ui:define>
+    
+</ui:composition>
