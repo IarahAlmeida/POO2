@@ -8,10 +8,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	
+	@NamedQuery(name = "allResponsible", // 
+			query = "select r from Responsible r")
 })
 public class Responsible extends Pessoa implements Serializable{
 	

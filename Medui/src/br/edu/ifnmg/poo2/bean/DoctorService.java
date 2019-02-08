@@ -13,8 +13,7 @@ import br.edu.ifnmg.poo2.entity.Doctor;
 
 @Named
 @SessionScoped
-
-public class DoctorBean implements Serializable{
+public class DoctorService implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

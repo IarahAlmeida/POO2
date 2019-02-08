@@ -3,6 +3,7 @@ package br.edu.ifnmg.poo2.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,8 @@ import javax.persistence.Column;
 
 @Entity
 @NamedQueries({
-	
+	@NamedQuery(name = "allAddress", // 
+			query = "select a from Address a")	
 })
 public class Address implements Serializable{
 	

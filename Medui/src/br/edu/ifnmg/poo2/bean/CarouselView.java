@@ -22,7 +22,7 @@ public class CarouselView implements Serializable{
     private Doctor selectedDoc;
      
     @Inject
-    private DoctorBean service;
+    private DoctorService service;
      
     @PostConstruct
     public void init() {
@@ -33,7 +33,7 @@ public class CarouselView implements Serializable{
         return docs;
     }
  
-    public void setService(DoctorBean service) {
+    public void setService(DoctorService service) {
         this.service = service;
     }
  

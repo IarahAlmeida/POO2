@@ -7,4 +7,107 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
     
+    
+    <ui:define name="content">
+    	<style>
+    	
+    	</style>
+    	<h:form>
+	    	<p:panel header="Cadastro de Paciente" style="width:95%; font-size:14px">
+	    		<p:panelGrid columns="4">
+		    		<p:outputLabel value="Primeiro Nome" for="firsName"/>
+		    		<p:inputText id="firsName" required="true"
+			    	size="45" value=""/>
+			    	
+			    	<p:outputLabel value="Sobrenome" for="lastName"/>
+		    		<p:inputText id="lastName" required="true"
+			    	size="45" value=""/>
+			    	
+			    	<p:outputLabel value="Data de Nascimento" for="birthdate"/>
+		    		<p:inputMask id="birthdate" value="" mask="99/99/9999" required="true"/>
+			    	
+			    	<p:outputLabel value="Sexo" for="sex"/>
+		    		<p:inputText id="sex" required="true" value=""/>
+			    	
+			    	<p:outputLabel value="CPF" for="cpf"/>
+			    	<p:inputMask id="cpf" value="" mask="999.999.999-99" required="true"/>
+			    	
+			    	<p:outputLabel value="RG" for="rg"/>
+		    		<p:inputMask id="rg" value="" mask="99.999.999-99" required="true"/>
+		    		
+		    		<p:outputLabel value="Telefone de Contato" for="number"/>
+		    		<p:inputMask id="number" value="" mask="(99) 99999-9999" required="true"/>
+			    	
+			    	<p:outputLabel value="Tipo do Contato" for="contact"/>
+		    		<p:inputText id="contact" required="true" value="" placeholder="Fixo ou Celular"/>
+			    	
+	    		</p:panelGrid>
+				<p:separator />
+				<h3 style="margin-top:10">Endereço</h3>
+	    		<p:dataTable var="addr" value="#{cadastroPacientBean.lazyAddresses}" paginator="true" rows="10"
+	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	    		rowsPerPageTemplate="5,10,15" id="addressTable"
+	    		selection="#{cadastroPacientBean.selectAddress}" selectionMode="single"  rowKey="#{addr.id}" style="margin-bottom:0">
+					  	
+<!-- 					  	<p:column selectionMode="multiple" style="width:26px;text-align:center"/>			     -->
+					    <p:column headerText="CEP" sortBy="#{addr.cep}" filterBy="#{addr.cep}">
+					        <h:outputText value="#{addr.cep}" />
+					    </p:column>
+					 
+					    <p:column headerText="Rua" sortBy="#{addr.street}" filterBy="#{addr.street}">
+					        <h:outputText value="#{addr.street}" />
+					    </p:column>
+					 
+					    <p:column headerText="Número" sortBy="#{addr.number}" filterBy="#{addr.number}">
+					        <h:outputText value="#{addr.number}" />
+					    </p:column>
+					 
+					    <p:column headerText="Complemento" sortBy="#{addr.complement}" filterBy="#{addr.complement}">
+					        <h:outputText value="#{addr.complement}" />
+					    </p:column>
+					    
+					    <p:column headerText="Bairro" sortBy="#{addr.neighborhood}" filterBy="#{addr.neighborhood}">
+					        <h:outputText value="#{addr.neighborhood}" />
+					    </p:column>
+					    
+					    <p:column headerText="Cidade" sortBy="#{addr.city}" filterBy="#{addr.city}">
+					        <h:outputText value="#{addr.city}" />
+					    </p:column>
+					    
+					    <p:column headerText="Estado" sortBy="#{addr.state}" filterBy="#{addr.state}">
+					        <h:outputText value="#{addr.state}" />
+					    </p:column>
+				</p:dataTable>
+				<p:separator />
+				<p:separator />
+				<h3 style="margin-top:10">Responsável (Selecione mais de um com a tecla Ctrl)</h3>
+				<p:dataTable var="resp" value="#{cadastroPacientBean.lazyResponsibles}" paginator="true" rows="10"
+	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	    		rowsPerPageTemplate="5,10,15" id="responsibleTable"
+	    		selection="#{cadastroPacientBean.selectResponsibles}" selectionMode="multiple"  rowKey="#{resp.id}" style="margin-bottom:0">
+					  	
+<!-- 					  	<p:column selectionMode="multiple" style="width:26px;text-align:center"/>			     -->
+					 
+					    <p:column headerText="Nome" sortBy="#{resp.first_name}" filterBy="#{resp.first_name}">
+					        <h:outputText value="#{resp.first_name}" />
+					    </p:column>
+					 
+					    <p:column headerText="Sobrenome" sortBy="#{resp.last_name}" filterBy="#{resp.last_name}">
+					        <h:outputText value="#{resp.last_name}" />
+					    </p:column>
+					 
+					    <p:column headerText="CPF" sortBy="#{resp.cpf}" filterBy="#{resp.cpf}">
+					        <h:outputText value="#{resp.cpf}" />
+					    </p:column>
+					    
+					    <p:column headerText="RG" sortBy="#{resp.rg}" filterBy="#{resp.rg}">
+					        <h:outputText value="#{resp.rg}" />
+					    </p:column>
+				</p:dataTable>
+				<p:commandButton value="Enviar" action="#{cadastroPacientBean.enviar}"/>
+				
+	    	</p:panel>
+    	</h:form>
+    </ui:define>
+    
 </ui:composition>

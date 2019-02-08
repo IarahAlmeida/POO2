@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+<h:head>
+	<title>Login</title>
+		<style>
+ 		.body { 
+ 			margin: 0; 
+ 			padding: 0; 
+ 			font-family: sans-serif; 
+ 			background: #ECE2E2; 
+ 		} 
+ 	    .box { 
+ 	    	width: 400px; 
+ 	    	padding: 40px; 
+ 	    	position: absolute; 
+ 	    	top: 50%; 
+ 	    	left: 50%; 
+ 	    	transform: translate(-50%, -50%); 
+ 	    	background: #ffffff; 
+ 	    	text-align: center; 
+ 	    	box-sizing: border-box; 
+ 	    	box-shadow: 0 15px 25px rgba(0,0,0,0.5); 
+ 	    	border-radius: 10px; 
+	    }
+ 	</style>
+	
+</h:head>
+
+<h:body class="body">
+	<h:form id="form" class="box">
+	    <div>
+	        <p:graphicImage library="images" name="cardiologist.png" />
+	    </div>
+	    
+	    <p:panelGrid columns="2">
+	    	<p:outputLabel value="Login" for="singin"/>
+	    	
+	    	<p:inputText id="singin" required="true" requiredMessage="Insira login válido"
+	    	size="20" placeholder="Insira seu login" value="#{login.loginTest}"/>
+	    	
+	    	<p:outputLabel value="Senha" for="password"/>
+	    	
+	    	<p:password id="password" required="true" requiredMessage="Insira Senha válida"
+	    	size="20" placeholder="Insira sua senha" value="#{login.senhaTest}"/>
+	    	
+	    </p:panelGrid>
+	    <p:messages autoUpdate="true" id="msg"/>
+	    <p:panelGrid>
+	    	<p:commandButton style="margin-top: 20px;" value="Entrar" action="#{login.loginSystem}" ajax="false"/>
+	    </p:panelGrid>
+	</h:form>
+</h:body>
+</html>
