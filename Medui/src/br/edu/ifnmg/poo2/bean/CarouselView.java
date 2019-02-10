@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifnmg.poo2.entity.Doctor;
+import br.edu.ifnmg.poo2.service.DoctorService;
 
 import java.io.Serializable;
 import java.util.List;

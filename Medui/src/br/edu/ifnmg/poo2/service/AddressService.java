@@ -1,4 +1,4 @@
-package br.edu.ifnmg.poo2.bean;
+package br.edu.ifnmg.poo2.service;
 
 import java.io.Serializable;
 import java.util.List;

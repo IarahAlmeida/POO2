@@ -68,7 +68,8 @@ public class Login implements Serializable{
 			return "/view/index.xhtml?faces-redirect=true";
 		}
 		else{
-			return "/login.xhtml?faces-redirect=true";
+			System.out.println("Chamou");
+			return "/view.xhtml?faces-redirect=true";
 		}
 	}
 	

@@ -18,8 +18,6 @@ public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String country = "Brasil";
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -44,6 +42,9 @@ public class Address implements Serializable{
 	
 	@Column(length = 25, nullable = false)
 	private String state;
+	
+	@Column(length = 25, nullable = false)
+	private String country;
 
 	public String getCountry() {
 		return country;

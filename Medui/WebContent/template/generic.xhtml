@@ -2,64 +2,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-     
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
-    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="webjars/font-awesome/4.4.0/css/font-awesome.css"></h:outputStylesheet> 
-        <style type="text/css">
-        .ui-panel, div.ui-state-hover {
-             margin: 10px;
-             width:200px;
-         }
-       
-         .ui-dashboard-column {
-             width:220px;
-         }
-         .fa {
-    		font-size: 16px;
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet
+		name="webjars/font-awesome/4.4.0/css/font-awesome.css"></h:outputStylesheet>
+	<style type="text/css">
+		.ui-panel, div.ui-state-hover {
+			margin: 10px;
+			width: 200px;
 		}
-		    .value {
-        font-weight: bold;
-	    }
-	     
-	    .ui-datatable {
-	        margin-bottom: 25px
-	    }
-	     
-	    .ui-datatable .ui-datatable-footer {
-	        text-align:left;
-	    }
-	     
-	    .ui-datalist ul {
-	        padding: 0 0 0 10px;
-	        margin: 5px 0;
-	    }
-	     
-	    .ui-datatable .ui-button-icon-only .ui-button-text {
-	        padding: 0;
-	        line-height: 1.2;
-	    }
-        </style>
+		
+		.ui-dashboard-column {
+			width: 220px;
+		}
+		
+		.fa {
+			font-size: 16px;
+		}
+		
+		.value {
+			font-weight: bold;
+		}
+		
+		.ui-datatable {
+			margin-bottom: 25px
+		}
+		
+		.ui-datatable .ui-datatable-footer {
+			text-align: center;
+		}
+		
+		.ui-datalist ul {
+			padding: 0 0 0 10px;
+			margin: 5px 0;
+		}
+		
+		.ui-datatable .ui-button-icon-only .ui-button-text {
+			padding: 0;
+			line-height: 1.2;
+		}
+		
+		.ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+			text-align: center;
+		}
+	</style>
 </h:head>
 
 <h:body>
- <h:body>
-    	<p:layout fullPage="true" >
-    		<p:layoutUnit position="north" style="text-align: center" header="Meduí">
-    			<ui:include src="/template/header.xhtml"/>
-    		</p:layoutUnit>
-    		
-    		<p:layoutUnit position="west" header="Menu de Opções" maxSize="310" >
-				<ui:include src="/template/menu.xhtml"/>
-    		</p:layoutUnit>
-    		
-    		<p:layoutUnit position="center">
-    			<ui:insert name="content"/>
-    		</p:layoutUnit>
-    	</p:layout>
-    </h:body>
+	<h:body>
+		<p:growl id="msgGlobal" life="3000"/>
+		<p:layout fullPage="true">
+			<p:layoutUnit position="north" style="text-align: center"
+				header="Meduí">
+				<ui:include src="/template/header.xhtml" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" header="Menu de Opções" maxSize="310">
+				<ui:include src="/template/menu.xhtml" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<ui:insert name="content" />
+			</p:layoutUnit>
+		</p:layout>
+	</h:body>
 </h:body>
 </html>

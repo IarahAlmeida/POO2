@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -41,10 +39,6 @@ public class Appointment implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date date_time;
-		
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "appointmentType_id", nullable = false, foreignKey = @ForeignKey(name = "fk_appointmentType"))
-	private AppointmentType appointmentType;
 
 	public Long getId() {
 		return id;
@@ -76,14 +70,6 @@ public class Appointment implements Serializable{
 
 	public void setDate_time(Date date_time) {
 		this.date_time = date_time;
-	}
-
-	public AppointmentType getAppointmentType() {
-		return appointmentType;
-	}
-
-	public void setAppointmentType(AppointmentType appointmentType) {
-		this.appointmentType = appointmentType;
 	}
 
 	@Override

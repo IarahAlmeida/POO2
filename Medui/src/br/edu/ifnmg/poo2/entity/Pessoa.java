@@ -1,13 +1,10 @@
 package br.edu.ifnmg.poo2.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,10 +40,11 @@ public class Pessoa implements Serializable{
 	@JoinColumn(name = "address_id", nullable = true, foreignKey = @ForeignKey(name = "fk_address"))
 	private Address address;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "pessoa_id", nullable = true, foreignKey = @ForeignKey(name = "fk_pessoa"))
-	private List<ContactNumber> contactNumbers = new ArrayList<>();
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "contact_id", nullable = true, foreignKey = @ForeignKey(name = "fk_pessoa"))
+	private ContactNumber contactNumber;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -95,12 +93,12 @@ public class Pessoa implements Serializable{
 		this.address = address;
 	}
 
-	public List<ContactNumber> getContactNumbers() {
-		return contactNumbers;
+	public ContactNumber getContactNumber() {
+		return contactNumber;
 	}
 
-	public void setContactNumbers(List<ContactNumber> contactNumbers) {
-		this.contactNumbers = contactNumbers;
+	public void setContactNumber(ContactNumber contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
 	@Override

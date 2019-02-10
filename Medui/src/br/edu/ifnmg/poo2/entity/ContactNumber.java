@@ -20,11 +20,11 @@ public class ContactNumber implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 20, nullable=false)
-	private String number;
+	@Column(length = 20)
+	private String cellNumber;
 	
 	@Column(length = 20)
-	private String type;
+	private String phoneNumber;
 
 	public Long getId() {
 		return id;
@@ -34,20 +34,20 @@ public class ContactNumber implements Serializable{
 		this.id = id;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getCellNumber() {
+		return cellNumber;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setCellNumber(String cellNumber) {
+		this.cellNumber = cellNumber;
 	}
 
-	public String getType() {
-		return type;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Override

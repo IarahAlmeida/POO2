@@ -6,108 +6,224 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
-    
-    
-    <ui:define name="content">
-    	<style>
-    	
-    	</style>
-    	<h:form>
-	    	<p:panel header="Cadastro de Paciente" style="width:95%; font-size:14px">
-	    		<p:panelGrid columns="4">
+   
+	<ui:define name="content">
+		<h:form id="formCad">
+			<p:panel header="Cadastro de Paciente" style="width:95%; font-size:14px">
+				<p:panelGrid columns="8" >
 		    		<p:outputLabel value="Primeiro Nome" for="firsName"/>
-		    		<p:inputText id="firsName" required="true"
-			    	size="45" value=""/>
+		    		<p:inputText id="firsName" required="true" value="#{cadastroPacientView.patient.first_name}"/>
 			    	
 			    	<p:outputLabel value="Sobrenome" for="lastName"/>
-		    		<p:inputText id="lastName" required="true"
-			    	size="45" value=""/>
+		    		<p:inputText id="lastName" required="true" value="#{cadastroPacientView.patient.last_name}"/>
 			    	
 			    	<p:outputLabel value="Data de Nascimento" for="birthdate"/>
-		    		<p:inputMask id="birthdate" value="" mask="99/99/9999" required="true"/>
+		    		<p:inputMask id="birthdate" value="#{cadastroPacientView.patient.birthdate}" 
+		    		mask="99/99/9999" required="true"/>
 			    	
 			    	<p:outputLabel value="Sexo" for="sex"/>
-		    		<p:inputText id="sex" required="true" value=""/>
+		    		<p:inputText id="sex" required="true" value="#{cadastroPacientView.patient.sex}"/>
 			    	
 			    	<p:outputLabel value="CPF" for="cpf"/>
-			    	<p:inputMask id="cpf" value="" mask="999.999.999-99" required="true"/>
+			    	<p:inputMask id="cpf" value="#{cadastroPacientView.patient.cpf}" 
+			    	mask="999.999.999-99" required="true"/>
 			    	
 			    	<p:outputLabel value="RG" for="rg"/>
-		    		<p:inputMask id="rg" value="" mask="99.999.999-99" required="true"/>
+		    		<p:inputMask id="rg" value="#{cadastroPacientView.patient.rg}" 
+		    		mask="aa-99.999.999" required="true"/>
 		    		
-		    		<p:outputLabel value="Telefone de Contato" for="number"/>
-		    		<p:inputMask id="number" value="" mask="(99) 99999-9999" required="true"/>
+		    		<p:outputLabel value="Celular" for="cellnumber"/>
+		    		<p:inputMask id="cellnumber" value="#{cadastroPacientView.contacNumber.cellNumber}" 
+		    		mask="(99) 99999-9999"/>
+		    		
+		    		<p:outputLabel value="Telefone" for="phonenumber"/>
+		    		<p:inputMask id="phonenumber" value="#{cadastroPacientView.contacNumber.phoneNumber}" 
+		    		mask="(99) 9999-9999"/>		    	
+		    		
+	    			<p:outputLabel value="cep" for="cep"/>
+			    	<p:inputMask id="cep" value="#{cadastroPacientView.address.cep}" 
+			    	mask="99999-999" required="true"/>
 			    	
-			    	<p:outputLabel value="Tipo do Contato" for="contact"/>
-		    		<p:inputText id="contact" required="true" value="" placeholder="Fixo ou Celular"/>
+			    	<p:outputLabel value="Rua" for="street"/>
+			    	<p:inputText id="street" value="#{cadastroPacientView.address.street}" required="true"/>
 			    	
+			    	<p:outputLabel value="Número" for="number"/>
+			    	<p:inputText  id="number" value="#{cadastroPacientView.address.number}" required="true"/>
+			    	
+			    	<p:outputLabel value="Complemento" for="complement"/>
+			    	<p:inputText id="complement" value="#{cadastroPacientView.address.complement}"/>
+			    	
+			    	<p:outputLabel value="Bairro" for="neighborhood"/>
+			    	<p:inputText id="neighborhood" value="#{cadastroPacientView.address.neighborhood}"/>
+			    	
+			    	<p:outputLabel value="Cidade" for="city"/>
+			    	<p:inputText id="city" value="#{cadastroPacientView.address.city}" required="true"/>
+			    	
+			    	<p:outputLabel value="Estado" for="state"/>
+			    	<p:inputText id="state" value="#{cadastroPacientView.address.state}" required="true"/>
+			    	
+			    	<p:outputLabel value="País" for="country"/>
+			    	<p:inputText id="country" disabled="true" value="Brasil" required="true"/>
 	    		</p:panelGrid>
-				<p:separator />
-				<h3 style="margin-top:10">Endereço</h3>
-	    		<p:dataTable var="addr" value="#{cadastroPacientBean.lazyAddresses}" paginator="true" rows="10"
-	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-	    		rowsPerPageTemplate="5,10,15" id="addressTable"
-	    		selection="#{cadastroPacientBean.selectAddress}" selectionMode="single"  rowKey="#{addr.id}" style="margin-bottom:0">
-					  	
-<!-- 					  	<p:column selectionMode="multiple" style="width:26px;text-align:center"/>			     -->
-					    <p:column headerText="CEP" sortBy="#{addr.cep}" filterBy="#{addr.cep}">
-					        <h:outputText value="#{addr.cep}" />
-					    </p:column>
-					 
-					    <p:column headerText="Rua" sortBy="#{addr.street}" filterBy="#{addr.street}">
-					        <h:outputText value="#{addr.street}" />
-					    </p:column>
-					 
-					    <p:column headerText="Número" sortBy="#{addr.number}" filterBy="#{addr.number}">
-					        <h:outputText value="#{addr.number}" />
-					    </p:column>
-					 
-					    <p:column headerText="Complemento" sortBy="#{addr.complement}" filterBy="#{addr.complement}">
-					        <h:outputText value="#{addr.complement}" />
-					    </p:column>
-					    
-					    <p:column headerText="Bairro" sortBy="#{addr.neighborhood}" filterBy="#{addr.neighborhood}">
-					        <h:outputText value="#{addr.neighborhood}" />
-					    </p:column>
-					    
-					    <p:column headerText="Cidade" sortBy="#{addr.city}" filterBy="#{addr.city}">
-					        <h:outputText value="#{addr.city}" />
-					    </p:column>
-					    
-					    <p:column headerText="Estado" sortBy="#{addr.state}" filterBy="#{addr.state}">
-					        <h:outputText value="#{addr.state}" />
-					    </p:column>
-				</p:dataTable>
-				<p:separator />
-				<p:separator />
-				<h3 style="margin-top:10">Responsável (Selecione mais de um com a tecla Ctrl)</h3>
-				<p:dataTable var="resp" value="#{cadastroPacientBean.lazyResponsibles}" paginator="true" rows="10"
-	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-	    		rowsPerPageTemplate="5,10,15" id="responsibleTable"
-	    		selection="#{cadastroPacientBean.selectResponsibles}" selectionMode="multiple"  rowKey="#{resp.id}" style="margin-bottom:0">
-					  	
-<!-- 					  	<p:column selectionMode="multiple" style="width:26px;text-align:center"/>			     -->
-					 
-					    <p:column headerText="Nome" sortBy="#{resp.first_name}" filterBy="#{resp.first_name}">
-					        <h:outputText value="#{resp.first_name}" />
-					    </p:column>
-					 
-					    <p:column headerText="Sobrenome" sortBy="#{resp.last_name}" filterBy="#{resp.last_name}">
-					        <h:outputText value="#{resp.last_name}" />
-					    </p:column>
-					 
-					    <p:column headerText="CPF" sortBy="#{resp.cpf}" filterBy="#{resp.cpf}">
-					        <h:outputText value="#{resp.cpf}" />
-					    </p:column>
-					    
-					    <p:column headerText="RG" sortBy="#{resp.rg}" filterBy="#{resp.rg}">
-					        <h:outputText value="#{resp.rg}" />
-					    </p:column>
-				</p:dataTable>
-				<p:commandButton value="Enviar" action="#{cadastroPacientBean.enviar}"/>
-				
 	    	</p:panel>
-    	</h:form>
-    </ui:define>
-    
+	    </h:form>
+	    <h:form id="formTbl">
+			<p:panel style="width:95%; font-size:14px">
+				<p:separator/>
+				<p:dataTable emptyMessage="Nenhum responsável atribuído ao paciente."
+		    		var="respAt" value="#{cadastroPacientView.respAtribuidos}" paginator="true" rows="5"
+		    		filteredValue="#{cadastroPacientView.respAtribuidosFiltrados}" widgetVar="tblFtrAT"
+		    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		    		rowsPerPageTemplate="5,10" id="responsibleAtTable" rowKey="#{respAt.id}" style="margin-bottom:0">
+					<f:facet name="header">
+						<h:outputText value="Responsáveis Atribuídos ao Paciente"/>
+					</f:facet>
+					
+					<p:column headerText="Nome" sortBy="#{respAt.first_name}" filterBy="#{respAt.first_name}">
+						<h:outputText value="#{respAt.first_name}"/>
+					</p:column>
+					
+					<p:column headerText="Sobrenome" sortBy="#{respAt.last_name}" filterBy="#{respAt.last_name}">
+						<h:outputText value="#{respAt.last_name}"/>
+					</p:column>
+					
+					<p:column headerText="CPF" sortBy="#{respAt.cpf}" filterBy="#{respAt.cpf}">
+						<h:outputText value="#{respAt.cpf}"/>
+					</p:column>
+					
+					<p:column headerText="RG" sortBy="#{respAt.rg}" filterBy="#{respAt.rg}">
+						<h:outputText value="#{respAt.rg}"/>
+					</p:column>
+					
+					<p:column headerText="Contato" sortBy="#{respAt.cellNumber}" filterBy="#{respAt.cellNumber}">
+						<h:outputText value="#{respAt.cellNumber}"/>
+					</p:column>
+					
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-trash"
+						oncomplete="PF('dlgRespDW').show();" update=":frmRespDw:pnlRespDw">
+							<f:setPropertyActionListener target="#{cadastroPacientView.selectedRespDw}"
+							value="#{respAt}"/>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:separator/>			
+				<p:separator/>
+				<p:dataTable emptyMessage="Nenhum responsável cadastrado."
+		    		var="respCd" value="#{cadastroPacientView.respCadastrados}" paginator="true" rows="5"
+		    		filteredValue="#{cadastroPacientView.respCadastradosFiltrados}" widgetVar="tblFtrCD"
+		    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		    		rowsPerPageTemplate="5,10" id="responsibleCdTable" rowKey="#{respCd.id}" style="margin-bottom:0">
+					<f:facet name="header">
+						<h:outputText value="Responsáveis cadastrados"/>
+					</f:facet>
+					
+					<p:column headerText="Nome" sortBy="#{respCd.first_name}" filterBy="#{respCd.first_name}">
+						<h:outputText value="#{respCd.first_name}"/>
+					</p:column>
+					
+					<p:column headerText="Sobrenome" sortBy="#{respCd.last_name}" filterBy="#{respCd.last_name}">
+						<h:outputText value="#{respCd.last_name}"/>
+					</p:column>
+					
+					<p:column headerText="CPF" sortBy="#{respCd.cpf}" filterBy="#{respCd.cpf}">
+						<h:outputText value="#{respCd.cpf}"/>
+					</p:column>
+					
+					<p:column headerText="RG" sortBy="#{respCd.rg}" filterBy="#{respCd.rg}">
+						<h:outputText value="#{respCd.rg}"/>
+					</p:column>
+					
+					<p:column headerText="Contato" sortBy="#{respCd.cellNumber}" filterBy="#{respCd.cellNumber}">
+						<h:outputText value="#{respCd.cellNumber}"/>
+					</p:column>
+					
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton title="Adicionar aos Responsáveis do Paciente" icon="ui-icon-circle-plus" 
+						oncomplete="PF('dlgRespUp').show();" update=":frmRespUp:pnlRespUp">
+							<f:setPropertyActionListener target="#{cadastroPacientView.selectedRespUp}" value="#{respCd}"/>
+						</p:commandButton>
+					</p:column>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Novo Responsável" actionListener="#{cadastroPacientView.prepararNovoResponsavel}"
+						oncomplete="PF('dlgNewResp').show();" update=":formDialg:pnlRespNovo"/>
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+		
+		<!-- Dialog -->
+		<p:dialog style="font-size:14px" widgetVar="dlgNewResp" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Cadastro de Responsável">
+			<h:form id="formDialg">
+				<p:panelGrid id="pnlRespNovo" columns="2">
+					<p:outputLabel value="Nome" for="nomeResp"/>
+					<p:inputText id="nomeResp" required="true" value="#{cadastroPacientView.novoResp.first_name}"/>
+					
+					<p:outputLabel value="Sobrenome" for="sobrenomeResp"/>
+					<p:inputText id="sobrenomeResp" required="true" value="#{cadastroPacientView.novoResp.last_name}"/>
+					
+					<p:outputLabel value="CPF" for="cpfResp"/>
+					<p:inputMask id="cpfResp" value="#{cadastroPacientView.novoResp.cpf}" 
+		    		mask="999.999.999-99" required="true"/>
+		    		
+					<p:outputLabel value="RG" for="rgResp"/>
+					<p:inputMask id="rgResp" required="true" value="#{cadastroPacientView.novoResp.rg}"
+					mask="aa-99.999.999"/>
+									
+					<p:outputLabel value="Contato" for="contactResp"/>
+					<p:inputMask id="contactResp" value="#{cadastroPacientView.novoResp.cellNumber}" 
+		    		mask="(99) 99999999?9"/>
+
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{cadastroPacientView.salvarResponsavel}"
+					oncomplete="PF('dlgNewResp').hide(); PF('tblFtrCD').clearFilters();" update=":formTbl:responsibleCdTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgNewResp').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog style="font-size:14px" widgetVar="dlgRespDW" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Remover atribuição de responsável">
+			<h:form id="frmRespDw">
+				<p:panelGrid id="pnlRespDw" columns="2">
+					<h:outputText value="Nome:"/>
+					<h:outputText value="#{cadastroPacientView.selectedRespDw.first_name}"/>
+					
+					<h:outputText value="Sobrenome:"/>
+					<h:outputText value="#{cadastroPacientView.selectedRespDw.last_name}"/>
+				</p:panelGrid>
+				<p:panelGrid>
+					<p:commandButton value="Remover" actionListener="#{cadastroPacientView.removerResponsavelAtribuido}"
+					oncomplete="PF('dlgRespDW').hide(); PF('tblFtrAT').clearFilters();"
+					update=":formTbl:responsibleAtTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgRespDW').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog style="font-size:14px" widgetVar="dlgRespUp" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Adicionar atribuição de responsável">
+			<h:form id="frmRespUp">
+				<p:panelGrid id="pnlRespUp" columns="2">
+					<h:outputText value="Nome:"/>
+					<h:outputText value="#{cadastroPacientView.selectedRespUp.first_name}"/>
+					
+					<h:outputText value="Sobrenome:"/>
+					<h:outputText value="#{cadastroPacientView.selectedRespUp.last_name}"/>
+				</p:panelGrid>
+				<p:panelGrid>
+					<p:commandButton value="Sim" actionListener="#{cadastroPacientView.atribuirtResponsavel}"
+					oncomplete="PF('dlgRespUp').hide(); PF('tblFtrAT').clearFilters();"
+					update=":formTbl:responsibleAtTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgRespUp').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
 </ui:composition>
