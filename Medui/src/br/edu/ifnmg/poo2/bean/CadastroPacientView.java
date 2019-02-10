@@ -1,18 +1,20 @@
 package br.edu.ifnmg.poo2.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifnmg.poo2.entity.Address;
 import br.edu.ifnmg.poo2.entity.ContactNumber;
 import br.edu.ifnmg.poo2.entity.Patient;
 import br.edu.ifnmg.poo2.entity.Responsible;
+import br.edu.ifnmg.poo2.service.PatientService;
 import br.edu.ifnmg.poo2.service.ResponsibleService;
 import br.edu.ifnmg.poo2.util.JSFUtil;
 
@@ -32,9 +34,13 @@ public class CadastroPacientView implements Serializable{
 	private Responsible selectedRespUp;
 	private Responsible selectedRespDw;
 	private Responsible novoResp;
+	private String birthdate;
 	
-	@Inject
+	@EJB
 	private ResponsibleService respService;
+	
+	@EJB
+	private PatientService patService;
 	
 	@PostConstruct
 	public void init() {
@@ -68,11 +74,33 @@ public class CadastroPacientView implements Serializable{
 	}
 	
 	public void atribuirtResponsavel() {
-		respAtribuidos.add(selectedRespUp);
+		if(respAtribuidos.contains(selectedRespUp)) {
+			JSFUtil.adicionarMensagemErro("Esse Responsável já foi atribuído");
+		}
+		else {
+			respAtribuidos.add(selectedRespUp);
+			JSFUtil.adicionarMensagemSucesso("Responsável Atribuído");
+		}
 	}
 	
 	public void removerResponsavelAtribuido () {
 		respAtribuidos.remove(selectedRespDw);
+	}
+	
+	public void cadastrarPaciente() {
+		address.setCountry("Brasil");
+		patient.setResponsibles(respAtribuidos);
+		patient.setAddress(address);
+		patient.setContactNumber(contacNumber);
+		try {
+			patient.setBirthdate(new SimpleDateFormat("dd/MM/yyyy").parse(getBirthdate()));
+			patService.salvar(patient);
+			JSFUtil.adicionarMensagemSucesso("Paciente Cadastrado!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemSucesso(e.getMessage());
+		}
+		
 	}
 
 	public Patient getPatient() {
@@ -155,6 +183,14 @@ public class CadastroPacientView implements Serializable{
 	public void setNovoResp(Responsible novoResp) {
 		this.novoResp = novoResp;
 	}
+	
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
 
 	public ResponsibleService getRespService() {
 		return respService;
@@ -163,5 +199,14 @@ public class CadastroPacientView implements Serializable{
 	public void setRespService(ResponsibleService respService) {
 		this.respService = respService;
 	}
+
+	public PatientService getPatService() {
+		return patService;
+	}
+
+	public void setPatService(PatientService patService) {
+		this.patService = patService;
+	}
+	
 
 }

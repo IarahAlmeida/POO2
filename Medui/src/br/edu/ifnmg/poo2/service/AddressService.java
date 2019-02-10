@@ -3,16 +3,14 @@ package br.edu.ifnmg.poo2.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import br.edu.ifnmg.poo2.entity.Address;
 
-@Named
-@SessionScoped
+@Stateful
 public class AddressService implements Serializable{
 
 	private static final long serialVersionUID = 1L;
