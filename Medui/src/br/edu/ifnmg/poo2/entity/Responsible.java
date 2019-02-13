@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +41,7 @@ public class Responsible implements Serializable{
 	@Column(length = 20)
 	private String cellNumber;
 	
-	@ManyToMany(mappedBy = "responsibles", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "responsibles")
 	private List<Patient> patients = new ArrayList<>();
 
 	public Long getId() {

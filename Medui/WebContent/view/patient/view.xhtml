@@ -8,7 +8,70 @@
     xmlns:p="http://primefaces.org/ui">
    
 	<ui:define name="content">
+	<h:form id="frmViewPat">
+		<p:panel header="Lista de Pacientes" style="width:95%; font-size:14px">
+			<p:dataTable emptyMessage="Nenhum paciente Cadastrado."
+	    		var="pat" value="#{buscarPacientView.patients}" paginator="true" rows="5"
+	    		filteredValue="#{buscarPacientView.patientsFiltrados}" widgetVar="tblViewPat"
+	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	    		rowsPerPageTemplate="5,10" id="patientTable" rowKey="#{pat.id}" style="margin-bottom:0">
+				
+				<p:column headerText="Nome" sortBy="#{pat.first_name}" filterBy="#{pat.first_name}">
+					<h:outputText value="#{pat.first_name}"/>
+				</p:column>
+				
+				<p:column headerText="Sobrenome" sortBy="#{pat.last_name}" filterBy="#{pat.last_name}">
+					<h:outputText value="#{pat.last_name}"/>
+				</p:column>
+				
+				<p:column headerText="CPF" sortBy="#{pat.cpf}" filterBy="#{pat.cpf}">
+					<h:outputText value="#{pat.cpf}"/>
+				</p:column>
+				
+				<p:column headerText="Data de Nascimento" sortBy="#{pat.birthdate}" filterBy="#{pat.birthdate}">
+					<h:outputText value="#{pat.birthdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-pencil">
+							<f:setPropertyActionListener target="#{buscarPacientView.selectedPatient}" value="#{pat}"/>
+						</p:commandButton>
+					
+						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-trash"
+						oncomplete="PF('dlgExcluirPat').show();" update=":frmExcluirPad:pnlEcluirPat">
+							<f:setPropertyActionListener target="#{buscarPacientView.selectedPatient}" value="#{pat}"/>
+						</p:commandButton>
+			</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
 	
+	<p:dialog widgetVar="dlgExcluirPat" closable="false" draggable="false" resizable="false"
+	header="Excluir Paciente">
+		<h:form id="frmExcluirPad">
+			<p:panelGrid id="pnlEcluirPat" columns="2">
+				<h:outputLabel value="Nome"/>
+				<h:outputText value="#{buscarPacientView.selectedPatient.first_name}"/>
+				
+				<h:outputLabel value="Sobrenome"/>
+				<h:outputText value="#{buscarPacientView.selectedPatient.last_name}"/>
+				
+				<h:outputLabel value="Cpf"/>
+				<h:outputText value="#{buscarPacientView.selectedPatient.cpf}"/>
+				
+			</p:panelGrid>
+		
+			<p:panelGrid columns="2">
+				<p:commandButton value="Excluir" actionListener="#{buscarPacientView.excluirPatient}"
+				update=":frmViewPat:patientTable :msgGlobal" 
+				oncomplete="PF('dlgExcluirPat').hide(); PF('tblViewPat').clearFilters();"/>
+				<p:commandButton value="Cancelar" oncomplete="PF('dlgExcluirPat').hide();"/>
+			</p:panelGrid>
+						
+		</h:form>
+	</p:dialog>
 
 	</ui:define>
 </ui:composition>

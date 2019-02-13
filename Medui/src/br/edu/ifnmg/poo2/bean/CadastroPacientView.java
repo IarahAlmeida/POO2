@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.edu.ifnmg.poo2.entity.Address;
@@ -36,10 +36,10 @@ public class CadastroPacientView implements Serializable{
 	private Responsible novoResp;
 	private String birthdate;
 	
-	@EJB
+	@Inject
 	private ResponsibleService respService;
 	
-	@EJB
+	@Inject
 	private PatientService patService;
 	
 	@PostConstruct

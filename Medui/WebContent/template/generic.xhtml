@@ -21,7 +21,7 @@
 		}
 		
 		.fa {
-			font-size: 16px;
+			font-size: 14px;
 		}
 		
 		.value {
@@ -54,7 +54,7 @@
 
 <h:body>
 	<h:body>
-		<p:growl id="msgGlobal" life="3000"/>
+		<p:growl id="msgGlobal" life="6000"/>
 		<p:layout fullPage="true">
 			<p:layoutUnit position="north" style="text-align: center"
 				header="Meduí">
@@ -66,6 +66,11 @@
 			</p:layoutUnit>
 
 			<p:layoutUnit position="center">
+				<p:toolbar>			 
+			        <f:facet name="right">
+			        	<p:commandButton value="Sair" icon="fa fa-sign-out" action="#{login.logoutSystem}"/>
+			        </f:facet>
+		    	</p:toolbar>
 				<ui:insert name="content" />
 			</p:layoutUnit>
 		</p:layout>

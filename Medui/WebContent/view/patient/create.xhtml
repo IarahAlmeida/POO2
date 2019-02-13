@@ -48,13 +48,13 @@
 		    	<p:inputText id="street" value="#{cadastroPacientView.address.street}" required="true"/>
 		    	
 		    	<p:outputLabel value="Número" for="number"/>
-		    	<p:inputText  id="number" value="#{cadastroPacientView.address.number}" required="true"/>
+		    	<p:inputText  id="number" value="#{cadastroPacientView.address.number}" required="true" maxlength="4" />
 		    	
 		    	<p:outputLabel value="Complemento" for="complement"/>
 		    	<p:inputText id="complement" value="#{cadastroPacientView.address.complement}"/>
 		    	
 		    	<p:outputLabel value="Bairro" for="neighborhood"/>
-		    	<p:inputText id="neighborhood" value="#{cadastroPacientView.address.neighborhood}"/>
+		    	<p:inputText id="neighborhood" value="#{cadastroPacientView.address.neighborhood}" required="true"/>
 		    	
 		    	<p:outputLabel value="Cidade" for="city"/>
 		    	<p:inputText id="city" value="#{cadastroPacientView.address.city}" required="true"/>

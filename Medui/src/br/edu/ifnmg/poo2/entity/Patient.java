@@ -14,13 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
-	
+	@NamedQuery(name = "allPatients", // 
+			query = "select p from Patient p")
 })
 public class Patient extends Pessoa implements Serializable{
 	
@@ -33,7 +35,7 @@ public class Patient extends Pessoa implements Serializable{
 	@Column(length = 10)
 	private String sex;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinTable(
 			joinColumns = @JoinColumn(name = "patient_id", foreignKey = @ForeignKey(name = "fk_patient")),
 			inverseJoinColumns = @JoinColumn(name = "responsible_id", foreignKey = @ForeignKey(name = "fk_responsible"))
