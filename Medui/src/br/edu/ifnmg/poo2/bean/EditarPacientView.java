@@ -2,7 +2,6 @@ package br.edu.ifnmg.poo2.bean;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,8 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.edu.ifnmg.poo2.entity.Address;
-import br.edu.ifnmg.poo2.entity.ContactNumber;
 import br.edu.ifnmg.poo2.entity.Patient;
 import br.edu.ifnmg.poo2.entity.Responsible;
 import br.edu.ifnmg.poo2.service.PatientService;
@@ -20,13 +17,12 @@ import br.edu.ifnmg.poo2.util.JSFUtil;
 
 @Named
 @ViewScoped
-public class CadastroPacientView implements Serializable{
+public class EditarPacientView implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Patient patient;
-	private ContactNumber contacNumber;
-	private Address address;
+	private Long codigo;
 	private List<Responsible> respCadastrados;
 	private List<Responsible> respAtribuidos;
 	private List<Responsible> respCadastradosFiltrados;
@@ -44,25 +40,13 @@ public class CadastroPacientView implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		patient = new Patient();
-		contacNumber = new ContactNumber();
-		address = new Address();
-		
-		try {
-			respCadastrados = respService.getResponsibles();
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSFUtil.adicionarMensagemErro(e.getMessage());
-		}
-		respAtribuidos = new ArrayList<>();
 	}
 	
 	public void prepararNovoResponsavel() {
 		novoResp = new Responsible();
 	}
 	
-	public void salvarResponsavel() {
-		
+	public void salvarResponsavel() {	
 		try {
 			respService.salvar(novoResp);
 			respCadastrados = respService.getResponsibles();
@@ -87,20 +71,29 @@ public class CadastroPacientView implements Serializable{
 		respAtribuidos.remove(selectedRespDw);
 	}
 	
-	public void cadastrarPaciente() {
-		address.setCountry("Brasil");
+	public void editarPaciente() {
 		patient.setResponsibles(respAtribuidos);
-		patient.setAddress(address);
-		patient.setContactNumber(contacNumber);
 		try {
 			patient.setBirthdate(new SimpleDateFormat("dd/MM/yyyy").parse(getBirthdate()));
 			patService.salvar(patient);
-			JSFUtil.adicionarMensagemSucesso("Paciente Cadastrado!");
+			JSFUtil.adicionarMensagemSucesso("Paciente Atualizado!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.adicionarMensagemSucesso(e.getMessage());
+		}	
+	}
+	
+	public void carregarEdicao() {
+		try {
+			patient = patService.buscar(codigo);
+			respCadastrados = respService.getResponsibles();
+			birthdate = new SimpleDateFormat("dd/MM/yyyy").format(patient.getBirthdate());
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
-		
+		System.out.println("Teste" + new SimpleDateFormat("dd/MM/yyyy").format(patient.getBirthdate()));
+		respAtribuidos = patient.getResponsibles();
 	}
 
 	public Patient getPatient() {
@@ -111,20 +104,12 @@ public class CadastroPacientView implements Serializable{
 		this.patient = patient;
 	}
 
-	public ContactNumber getContacNumber() {
-		return contacNumber;
+	public Long getCodigo() {
+		return codigo;
 	}
 
-	public void setContacNumber(ContactNumber contacNumber) {
-		this.contacNumber = contacNumber;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public List<Responsible> getRespCadastrados() {
@@ -142,7 +127,6 @@ public class CadastroPacientView implements Serializable{
 	public void setRespAtribuidos(List<Responsible> respAtribuidos) {
 		this.respAtribuidos = respAtribuidos;
 	}
-	
 
 	public List<Responsible> getRespCadastradosFiltrados() {
 		return respCadastradosFiltrados;
@@ -183,7 +167,7 @@ public class CadastroPacientView implements Serializable{
 	public void setNovoResp(Responsible novoResp) {
 		this.novoResp = novoResp;
 	}
-	
+
 	public String getBirthdate() {
 		return birthdate;
 	}
@@ -207,4 +191,5 @@ public class CadastroPacientView implements Serializable{
 	public void setPatService(PatientService patService) {
 		this.patService = patService;
 	}
+	
 }

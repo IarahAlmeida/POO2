@@ -35,7 +35,7 @@ public class Patient extends Pessoa implements Serializable{
 	@Column(length = 10)
 	private String sex;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinTable(
 			joinColumns = @JoinColumn(name = "patient_id", foreignKey = @ForeignKey(name = "fk_patient")),
 			inverseJoinColumns = @JoinColumn(name = "responsible_id", foreignKey = @ForeignKey(name = "fk_responsible"))

@@ -35,9 +35,10 @@
 				</p:column>
 				
 				<p:column headerText="Opções" style="text-align:center">
-						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-pencil">
-							<f:setPropertyActionListener target="#{buscarPacientView.selectedPatient}" value="#{pat}"/>
-						</p:commandButton>
+						<p:button title="Remover Responsável do Paciente" icon="ui-icon-pencil"
+						outcome="/view/patient/update.xhtml">
+							<f:param name="codigo" value="#{pat.id}"/>
+						</p:button>
 					
 						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-trash"
 						oncomplete="PF('dlgExcluirPat').show();" update=":frmExcluirPad:pnlEcluirPat">

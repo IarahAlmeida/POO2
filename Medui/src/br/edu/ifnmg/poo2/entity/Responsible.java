@@ -16,7 +16,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "allResponsible", // 
-			query = "select r from Responsible r")
+			query = "select r from Responsible r"),
 })
 public class Responsible implements Serializable{
 	

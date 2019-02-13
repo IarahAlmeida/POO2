@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/generic.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+   
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="codigo" value="#{editarPacientView.codigo}" />
+			<f:viewAction action="#{editarPacientView.carregarEdicao}"/>
+		</f:metadata>
+		<p:panel header="Editar Paciente" style="width:95%; font-size:14px">
+		<h:form id="formCad">
+			<p:panelGrid columns="8" >
+	    		<p:outputLabel value="Primeiro Nome" for="firsName"/>
+	    		<p:inputText id="firsName" required="true" value="#{editarPacientView.patient.first_name}"/>
+		    	
+		    	<p:outputLabel value="Sobrenome" for="lastName"/>
+	    		<p:inputText id="lastName" required="true" value="#{editarPacientView.patient.last_name}"/>
+		    	
+		    	<p:outputLabel value="Data de Nascimento" for="birthdate"/>
+		    	<p:inputMask id="birthdate" value="#{editarPacientView.birthdate}" required="true"
+		    	mask="99/99/9999"/>
+		    	
+		    	<p:outputLabel value="Sexo" for="sex"/>
+	    		<p:inputText id="sex" required="true" value="#{editarPacientView.patient.sex}"/>
+		    	
+		    	<p:outputLabel value="CPF" for="cpf"/>
+		    	<p:inputMask id="cpf" value="#{editarPacientView.patient.cpf}" 
+		    	mask="999.999.999-99" required="true"/>
+		    	
+		    	<p:outputLabel value="RG" for="rg"/>
+	    		<p:inputMask id="rg" value="#{editarPacientView.patient.rg}" 
+	    		mask="aa-99.999.999" required="true"/>
+	    		
+	    		<p:outputLabel value="Celular" for="cellnumber"/>
+	    		<p:inputMask id="cellnumber" value="#{editarPacientView.patient.contactNumber.cellNumber}" 
+	    		mask="(99) 99999-9999"/>
+	    		
+	    		<p:outputLabel value="Telefone" for="phonenumber"/>
+	    		<p:inputMask id="phonenumber" value="#{editarPacientView.patient.contactNumber.phoneNumber}" 
+	    		mask="(99) 9999-9999"/>		    	
+	    		
+    			<p:outputLabel value="cep" for="cep"/>
+		    	<p:inputMask id="cep" value="#{editarPacientView.patient.address.cep}" 
+		    	mask="99999-999" required="true"/>
+		    	
+		    	<p:outputLabel value="Rua" for="street"/>
+		    	<p:inputText id="street" value="#{editarPacientView.patient.address.street}" required="true"/>
+		    	
+		    	<p:outputLabel value="Número" for="number"/>
+		    	<p:inputText  id="number" value="#{editarPacientView.patient.address.number}" required="true" maxlength="4" />
+		    	
+		    	<p:outputLabel value="Complemento" for="complement"/>
+		    	<p:inputText id="complement" value="#{editarPacientView.patient.address.complement}"/>
+		    	
+		    	<p:outputLabel value="Bairro" for="neighborhood"/>
+		    	<p:inputText id="neighborhood" value="#{editarPacientView.patient.address.neighborhood}" required="true"/>
+		    	
+		    	<p:outputLabel value="Cidade" for="city"/>
+		    	<p:inputText id="city" value="#{editarPacientView.patient.address.city}" required="true"/>
+		    	
+		    	<p:outputLabel value="Estado" for="state"/>
+		    	<p:inputText id="state" value="#{editarPacientView.patient.address.state}" required="true"/>
+		    	
+		    	<p:outputLabel value="País" for="country"/>
+		    	<p:inputText id="country" disabled="true" value="Brasil" required="true"/>
+		    	
+    		</p:panelGrid>
+    		<p:panelGrid>
+    			<br/>
+				<p:commandButton value="Salvar" actionListener="#{editarPacientView.editarPaciente}"
+				update=":msgGlobal"/>
+			</p:panelGrid>
+    	</h:form>
+    	</p:panel>
+	    <h:form id="formTbl">
+			<p:panel style="width:95%; font-size:14px">
+				<p:separator/>
+				<p:dataTable emptyMessage="Nenhum responsável atribuído ao paciente."
+		    		var="respAt" value="#{editarPacientView.respAtribuidos}" paginator="true" rows="5"
+		    		filteredValue="#{editarPacientView.respAtribuidosFiltrados}" widgetVar="tblFtrAT"
+		    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		    		rowsPerPageTemplate="5,10" id="responsibleAtTable" rowKey="#{respAt.id}" style="margin-bottom:0">
+					<f:facet name="header">
+						<h:outputText value="Responsáveis Atribuídos ao Paciente"/>
+					</f:facet>
+					
+					<p:column headerText="Nome" sortBy="#{respAt.first_name}" filterBy="#{respAt.first_name}">
+						<h:outputText value="#{respAt.first_name}"/>
+					</p:column>
+					
+					<p:column headerText="Sobrenome" sortBy="#{respAt.last_name}" filterBy="#{respAt.last_name}">
+						<h:outputText value="#{respAt.last_name}"/>
+					</p:column>
+					
+					<p:column headerText="CPF" sortBy="#{respAt.cpf}" filterBy="#{respAt.cpf}">
+						<h:outputText value="#{respAt.cpf}"/>
+					</p:column>
+					
+					<p:column headerText="RG" sortBy="#{respAt.rg}" filterBy="#{respAt.rg}">
+						<h:outputText value="#{respAt.rg}"/>
+					</p:column>
+					
+					<p:column headerText="Contato" sortBy="#{respAt.cellNumber}" filterBy="#{respAt.cellNumber}">
+						<h:outputText value="#{respAt.cellNumber}"/>
+					</p:column>
+					
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton title="Remover Responsável do Paciente" icon="ui-icon-trash"
+						oncomplete="PF('dlgRespDW').show();" update=":frmRespDw:pnlRespDw">
+							<f:setPropertyActionListener target="#{editarPacientView.selectedRespDw}"
+							value="#{respAt}"/>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:separator/>			
+				<p:separator/>
+				<p:dataTable emptyMessage="Nenhum responsável cadastrado."
+		    		var="respCd" value="#{editarPacientView.respCadastrados}" paginator="true" rows="5"
+		    		filteredValue="#{editarPacientView.respCadastradosFiltrados}" widgetVar="tblFtrCD"
+		    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		    		rowsPerPageTemplate="5,10" id="responsibleCdTable" rowKey="#{respCd.id}" style="margin-bottom:0">
+					<f:facet name="header">
+						<h:outputText value="Responsáveis cadastrados"/>
+					</f:facet>
+					
+					<p:column headerText="Nome" sortBy="#{respCd.first_name}" filterBy="#{respCd.first_name}">
+						<h:outputText value="#{respCd.first_name}"/>
+					</p:column>
+					
+					<p:column headerText="Sobrenome" sortBy="#{respCd.last_name}" filterBy="#{respCd.last_name}">
+						<h:outputText value="#{respCd.last_name}"/>
+					</p:column>
+					
+					<p:column headerText="CPF" sortBy="#{respCd.cpf}" filterBy="#{respCd.cpf}">
+						<h:outputText value="#{respCd.cpf}"/>
+					</p:column>
+					
+					<p:column headerText="RG" sortBy="#{respCd.rg}" filterBy="#{respCd.rg}">
+						<h:outputText value="#{respCd.rg}"/>
+					</p:column>
+					
+					<p:column headerText="Contato" sortBy="#{respCd.cellNumber}" filterBy="#{respCd.cellNumber}">
+						<h:outputText value="#{respCd.cellNumber}"/>
+					</p:column>
+					
+					<p:column headerText="Opções" style="text-align:center">
+						<p:commandButton title="Adicionar aos Responsáveis do Paciente" icon="ui-icon-circle-plus" 
+						oncomplete="PF('dlgRespUp').show();" update=":frmRespUp:pnlRespUp">
+							<f:setPropertyActionListener target="#{editarPacientView.selectedRespUp}" value="#{respCd}"/>
+						</p:commandButton>
+					</p:column>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Novo Responsável" actionListener="#{editarPacientView.prepararNovoResponsavel}"
+						oncomplete="PF('dlgNewResp').show();" update=":formDialg:pnlRespNovo"/>
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+		
+		<!-- Dialog -->
+		<p:dialog style="font-size:14px" widgetVar="dlgNewResp" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Cadastro de Responsável">
+			<h:form id="formDialg">
+				<p:panelGrid id="pnlRespNovo" columns="2">
+					<p:outputLabel value="Nome" for="nomeResp"/>
+					<p:inputText id="nomeResp" required="true" value="#{editarPacientView.novoResp.first_name}"/>
+					
+					<p:outputLabel value="Sobrenome" for="sobrenomeResp"/>
+					<p:inputText id="sobrenomeResp" required="true" value="#{editarPacientView.novoResp.last_name}"/>
+					
+					<p:outputLabel value="CPF" for="cpfResp"/>
+					<p:inputMask id="cpfResp" value="#{editarPacientView.novoResp.cpf}" 
+		    		mask="999.999.999-99" required="true"/>
+		    		
+					<p:outputLabel value="RG" for="rgResp"/>
+					<p:inputMask id="rgResp" required="true" value="#{editarPacientView.novoResp.rg}"
+					mask="aa-99.999.999"/>
+									
+					<p:outputLabel value="Contato" for="contactResp"/>
+					<p:inputMask id="contactResp" value="#{editarPacientView.novoResp.cellNumber}" 
+		    		mask="(99) 99999999?9"/>
+
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{editarPacientView.salvarResponsavel}"
+					oncomplete="PF('dlgNewResp').hide(); PF('tblFtrCD').clearFilters();" update=":formTbl:responsibleCdTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgNewResp').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog style="font-size:14px" widgetVar="dlgRespDW" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Remover atribuição de responsável">
+			<h:form id="frmRespDw">
+				<p:panelGrid id="pnlRespDw" columns="2">
+					<h:outputText value="Nome:"/>
+					<h:outputText value="#{editarPacientView.selectedRespDw.first_name}"/>
+					
+					<h:outputText value="Sobrenome:"/>
+					<h:outputText value="#{editarPacientView.selectedRespDw.last_name}"/>
+				</p:panelGrid>
+				<p:panelGrid>
+					<p:commandButton value="Remover" actionListener="#{editarPacientView.removerResponsavelAtribuido}"
+					oncomplete="PF('dlgRespDW').hide(); PF('tblFtrAT').clearFilters();"
+					update=":formTbl:responsibleAtTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgRespDW').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog style="font-size:14px" widgetVar="dlgRespUp" closable="false" draggable="false"
+		resizable="false" modal="true" appendTo="@(body)"		
+		header="Adicionar atribuição de responsável">
+			<h:form id="frmRespUp">
+				<p:panelGrid id="pnlRespUp" columns="2">
+					<h:outputText value="Nome:"/>
+					<h:outputText value="#{editarPacientView.selectedRespUp.first_name}"/>
+					
+					<h:outputText value="Sobrenome:"/>
+					<h:outputText value="#{editarPacientView.selectedRespUp.last_name}"/>
+				</p:panelGrid>
+				<p:panelGrid>
+					<p:commandButton value="Sim" actionListener="#{editarPacientView.atribuirtResponsavel}"
+					oncomplete="PF('dlgRespUp').hide(); PF('tblFtrAT').clearFilters();"
+					update=":formTbl:responsibleAtTable :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgRespUp').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

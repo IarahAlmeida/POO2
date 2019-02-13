@@ -31,10 +31,13 @@ public class PatientService implements Serializable{
 	}
 	
 	@Transactional
+	public Patient buscar(Long id) {
+		return entityManager.find(Patient.class, id);
+	}
+	
+	@Transactional
 	public List<Patient> getPatients() {
 		TypedQuery<Patient> query = entityManager.createNamedQuery("allPatients", Patient.class);
 		return query.getResultList();
 	}
-	
-	
 }
