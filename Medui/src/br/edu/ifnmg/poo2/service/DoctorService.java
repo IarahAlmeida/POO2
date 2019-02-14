@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
 import br.edu.ifnmg.poo2.entity.Doctor;
 
 @Named
@@ -20,6 +19,21 @@ public class DoctorService implements Serializable{
 	
 	@PersistenceContext(unitName = "Medui")
 	private EntityManager entityManager;
+	
+	@Transactional
+	public void salvar(Doctor doctor) {
+		entityManager.persist(entityManager.contains(doctor) ? doctor : entityManager.merge(doctor));
+	}
+	
+	@Transactional
+	public void excluir(Doctor doctor) {
+		entityManager.remove(entityManager.contains(doctor) ? doctor : entityManager.merge(doctor));
+	}
+	
+	@Transactional
+	public Doctor buscar(Long id) {
+		return entityManager.find(Doctor.class, id);
+	}
 	
 	@Transactional
 	public List<Doctor> getDoctors() {

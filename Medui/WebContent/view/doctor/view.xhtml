@@ -7,4 +7,78 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
     
+    <ui:define name="content">
+	<h:form id="frmViewDoc">
+		<p:panel header="Lista de Médicos" style="width:95%; font-size:14px">
+			<p:dataTable emptyMessage="Nenhum Médico Cadastrado."
+	    		var="doc" value="#{buscarMedicoView.doctors}" paginator="true" rows="5"
+	    		filteredValue="#{buscarMedicoView.doctorsFiltrados}" widgetVar="tblViewDoc"
+	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	    		rowsPerPageTemplate="5,10" id="doctorTable" rowKey="#{doc.id}" style="margin-bottom:0">>
+				
+				<p:column headerText="Nome" sortBy="#{doc.first_name}" filterBy="#{doc.first_name}">
+					<h:outputText value="#{doc.first_name}"/>
+				</p:column>
+				
+				<p:column headerText="Sobrenome" sortBy="#{doc.last_name}" filterBy="#{doc.last_name}">
+					<h:outputText value="#{doc.last_name}"/>
+				</p:column>
+				
+				<p:column headerText="CRM estado" sortBy="#{doc.crm_state}" filterBy="#{doc.crm_state}">
+					<h:outputText value="#{doc.crm_state}"/>
+				</p:column>
+				
+				<p:column headerText="CRM número" sortBy="#{doc.crm_number}" filterBy="#{doc.crm_number}">
+					<h:outputText value="#{doc.crm_number}"/>
+				</p:column>
+				
+				<p:column headerText="Especialidade" sortBy="#{doc.specialty}" filterBy="#{doc.specialty}">
+					<h:outputText value="#{doc.specialty}"/>
+				</p:column>
+				
+				<p:column headerText="Opções" style="text-align:center">
+					<p:button title="Editar Médico" icon="ui-icon-pencil"
+					outcome="/view/doctor/update.xhtml">
+						<f:param name="codigo" value="#{doc.id}"/>
+					</p:button>
+				
+					<p:commandButton title="Excluir Médico" icon="ui-icon-trash"
+					oncomplete="PF('dlgExcluirDoc').show();" update=":frmExcluirDoc:pnlExcluirDoc">
+						<f:setPropertyActionListener target="#{buscarMedicoView.selectedDoctor}" value="#{doc}"/>
+					</p:commandButton>
+				</p:column>
+		
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+	
+	<p:dialog widgetVar="dlgExcluirDoc" closable="false" draggable="false" resizable="false"
+	header="Excluir Médico">
+		<h:form id="frmExcluirDoc">
+			<p:panelGrid id="pnlExcluirDoc" columns="2">
+				<h:outputLabel value="Nome"/>
+				<h:outputText value="#{buscarMedicoView.selectedDoctor.first_name}"/>
+				
+				<h:outputLabel value="Sobrenome"/>
+				<h:outputText value="#{buscarMedicoView.selectedDoctor.last_name}"/>
+				
+				<h:outputLabel value="CRM número"/>
+				<h:outputText value="#{buscarMedicoView.selectedDoctor.crm_number}"/>
+				
+				<h:outputLabel value="CRM estado"/>
+				<h:outputText value="#{buscarMedicoView.selectedDoctor.crm_state}"/>
+				
+			</p:panelGrid>
+		
+			<p:panelGrid columns="2">
+				<p:commandButton value="Excluir" actionListener="#{buscarMedicoView.excluirMedico}"
+				update=":frmViewDoc:doctorTable :msgGlobal" 
+				oncomplete="PF('dlgExcluirDoc').hide(); PF('tblViewDoc').clearFilters();"/>
+				<p:commandButton value="Cancelar" oncomplete="PF('dlgExcluirDoc').hide();"/>
+			</p:panelGrid>
+						
+		</h:form>
+	</p:dialog>
+	
+	</ui:define>
 </ui:composition>

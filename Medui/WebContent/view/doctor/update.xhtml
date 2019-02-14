@@ -6,80 +6,83 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
-    
-    <ui:define name="content">
-		<p:panel header="Cadastro de Médico" style="width:95%; font-size:14px">
+   
+	<ui:define name="content">
+	<f:metadata>
+		<f:viewParam name="codigo" value="#{editarMedicoView.codigo}" />
+		<f:viewAction action="#{editarMedicoView.carregarEdicao}"/>
+	</f:metadata>
+	<p:panel header="Editar Paciente" style="width:95%; font-size:14px">
 		<h:form id="formCad">
 			<p:panelGrid columns="8">
 				<p:outputLabel value="Primeiro Nome" for="firsName"/>
-	    		<p:inputText id="firsName" required="true" value="#{cadastroMedicoView.doctor.first_name}"/>
+	    		<p:inputText id="firsName" required="true" value="#{editarMedicoView.doctor.first_name}"/>
 		    	
 		    	<p:outputLabel value="Sobrenome" for="lastName"/>
-	    		<p:inputText id="lastName" required="true" value="#{cadastroMedicoView.doctor.last_name}"/>
+	    		<p:inputText id="lastName" required="true" value="#{editarMedicoView.doctor.last_name}"/>
 		    	
 		    	<p:outputLabel value="CRM número" for="crm_number"/>
-		    	<p:inputMask id="crm_number" value="#{cadastroMedicoView.doctor.crm_number}" required="true"
+		    	<p:inputMask id="crm_number" value="#{editarMedicoView.doctor.crm_number}" required="true"
 		    	mask="9999999"/>
 		    	
 		    	<p:outputLabel value="CRM estado" for="crm_state"/>
-	    		<p:inputMask id="crm_state" value="#{cadastroMedicoView.doctor.crm_state}" required="true"
+	    		<p:inputMask id="crm_state" value="#{editarMedicoView.doctor.crm_state}" required="true"
 	    		mask="aa"/>
 		    	
 		    	<p:outputLabel value="CPF" for="cpf"/>
-		    	<p:inputMask id="cpf" value="#{cadastroMedicoView.doctor.cpf}" 
+		    	<p:inputMask id="cpf" value="#{editarMedicoView.doctor.cpf}" 
 		    	mask="999.999.999-99" required="true"/>
 		    	
 		    	<p:outputLabel value="RG" for="rg"/>
-	    		<p:inputMask id="rg" value="#{cadastroMedicoView.doctor.rg}" 
+	    		<p:inputMask id="rg" value="#{editarMedicoView.doctor.rg}" 
 	    		mask="aa-99.999.999" required="true"/>
 	    		
 	    		<p:outputLabel value="Celular" for="cellnumber"/>
-	    		<p:inputMask id="cellnumber" value="#{cadastroMedicoView.contactNumber.cellNumber}" 
+	    		<p:inputMask id="cellnumber" value="#{editarMedicoView.doctor.contactNumber.cellNumber}" 
 	    		mask="(99) 99999-9999"/>
 	    		
 	    		<p:outputLabel value="Telefone" for="phonenumber"/>
-	    		<p:inputMask id="phonenumber" value="#{cadastroMedicoView.contactNumber.phoneNumber}" 
+	    		<p:inputMask id="phonenumber" value="#{editarMedicoView.doctor.contactNumber.phoneNumber}" 
 	    		mask="(99) 9999-9999"/>		    	
 	    		
     			<p:outputLabel value="cep" for="cep"/>
-		    	<p:inputMask id="cep" value="#{cadastroMedicoView.address.cep}" 
+		    	<p:inputMask id="cep" value="#{editarMedicoView.doctor.address.cep}" 
 		    	mask="99999-999" required="true"/>
 		    	
 		    	<p:outputLabel value="Rua" for="street"/>
-		    	<p:inputText id="street" value="#{cadastroMedicoView.address.street}" required="true"/>
+		    	<p:inputText id="street" value="#{editarMedicoView.doctor.address.street}" required="true"/>
 		    	
 		    	<p:outputLabel value="Número" for="number"/>
-		    	<p:inputText  id="number" value="#{cadastroMedicoView.address.number}" required="true" maxlength="4" />
+		    	<p:inputText  id="number" value="#{editarMedicoView.doctor.address.number}" required="true" maxlength="4" />
 		    	
 		    	<p:outputLabel value="Complemento" for="complement"/>
-		    	<p:inputText id="complement" value="#{cadastroMedicoView.address.complement}"/>
+		    	<p:inputText id="complement" value="#{editarMedicoView.doctor.address.complement}"/>
 		    	
 		    	<p:outputLabel value="Bairro" for="neighborhood"/>
-		    	<p:inputText id="neighborhood" value="#{cadastroMedicoView.address.neighborhood}" required="true"/>
+		    	<p:inputText id="neighborhood" value="#{editarMedicoView.doctor.address.neighborhood}" required="true"/>
 		    	
 		    	<p:outputLabel value="Cidade" for="city"/>
-		    	<p:inputText id="city" value="#{cadastroMedicoView.address.city}" required="true"/>
+		    	<p:inputText id="city" value="#{editarMedicoView.doctor.address.city}" required="true"/>
 		    	
 		    	<p:outputLabel value="Estado" for="state"/>
-		    	<p:inputText id="state" value="#{cadastroMedicoView.address.state}" required="true"/>
+		    	<p:inputText id="state" value="#{editarMedicoView.doctor.address.state}" required="true"/>
 		    	
 		    	<p:outputLabel value="País" for="country"/>
 		    	<p:inputText id="country" disabled="true" value="Brasil" required="true"/>
 				
 				<p:outputLabel for="lazy" value="Especialidade:" />
-		        <p:selectOneMenu id="lazy" value="#{cadastroMedicoView.selectedSpecialty}" dynamic="true" style="width:125px">
+		        <p:selectOneMenu id="lazy" value="#{editarMedicoView.selectedSpecialty}" dynamic="true" style="width:125px">
 		            <f:selectItem itemLabel="Selecione Uma" itemValue="" />
-		            <f:selectItems value="#{cadastroMedicoView.specialtys}"/>
+		            <f:selectItems value="#{editarMedicoView.specialtys}"/>
 		        </p:selectOneMenu>
 			</p:panelGrid>
 			
 			<p:panelGrid>
     			<br/>
-				<p:commandButton value="Cadastrar" actionListener="#{cadastroMedicoView.cadastrarMedico}"
+				<p:commandButton value="Salvar" actionListener="#{editarMedicoView.editarMedico}"
 				update=":msgGlobal"/>
 			</p:panelGrid>
 		</h:form>
-		</p:panel>
-	</ui:define>			
-    
+	</p:panel>
+	</ui:define>
 </ui:composition>

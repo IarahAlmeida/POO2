@@ -98,7 +98,7 @@ public class CadastroPacientView implements Serializable{
 			JSFUtil.adicionarMensagemSucesso("Paciente Cadastrado!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			JSFUtil.adicionarMensagemSucesso(e.getMessage());
+			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 		
 	}
