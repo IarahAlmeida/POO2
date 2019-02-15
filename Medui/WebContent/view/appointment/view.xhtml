@@ -37,9 +37,7 @@
 			</p:column>
 			
 			<p:column headerText="Data/Hora da Consulta" sortBy="#{consult.date_time}" filterBy="#{consult.date_time}">
-				<h:outputText value="#{consult.date_time}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-				</h:outputText>
+				<h:outputText value="#{consult.date_time}"/>
 			</p:column>
 			
 			<p:column headerText="Opções" style="text-align:center">
@@ -72,7 +70,7 @@
 				
 				<h:outputLabel value="Horário da Consulta"/>
 				<h:outputText value="#{buscarConsultaView.selectedConsulta.date_time}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</h:outputText>				
 				
 			</p:panelGrid>

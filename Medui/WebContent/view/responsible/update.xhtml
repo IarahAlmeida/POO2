@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/generic.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+    <f:metadata>
+		<f:viewParam name="codigo" value="#{editarResponsavelView.codigo}" />
+		<f:viewAction action="#{editarResponsavelView.carregarEdicao}"/>
+	</f:metadata>
+	
+	<p:panel header="Editar Médico" style="width:95%; font-size:14px">
+		<h:form id="formResp">
+			<p:panelGrid columns="4">
+					<p:outputLabel value="Nome" for="nomeResp"/>
+					<p:inputText id="nomeResp" required="true" value="#{editarResponsavelView.responsible.first_name}"/>
+					
+					<p:outputLabel value="Sobrenome" for="sobrenomeResp"/>
+					<p:inputText id="sobrenomeResp" required="true" value="#{editarResponsavelView.responsible.last_name}"/>
+					
+					<p:outputLabel value="CPF" for="cpfResp"/>
+					<p:inputMask id="cpfResp" value="#{editarResponsavelView.responsible.cpf}" 
+		    		mask="999.999.999-99" required="true"/>
+		    		
+					<p:outputLabel value="RG" for="rgResp"/>
+					<p:inputMask id="rgResp" required="true" value="#{editarResponsavelView.responsible.rg}"
+					mask="aa-99.999.999"/>
+									
+					<p:outputLabel value="Contato" for="contactResp"/>
+					<p:inputMask id="contactResp" value="#{editarResponsavelView.responsible.cellNumber}" 
+		    		mask="(99) 99999999?9"/>
+			</p:panelGrid>
+			
+			<p:panelGrid>
+    			<br/>
+				<p:commandButton value="Salvar" actionListener="#{editarResponsavelView.editarResponsible}"
+				update=":msgGlobal"/>
+			</p:panelGrid>
+		</h:form>
+		
+	<p:dataTable emptyMessage="Nenhum paciente ligado ao responsável."
+   		var="pat" value="#{editarResponsavelView.patients}" paginator="true" rows="5"
+   		filteredValue="#{editarResponsavelView.patientsFiltrados}" widgetVar="tblViewPat"
+   		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+   		rowsPerPageTemplate="5,10" id="patientTable" rowKey="#{pat.id}" style="margin-bottom:0">
+		<f:facet name="header">
+			<h:outputText value="Pacientes Ligados a esse responsável"/>
+		</f:facet>
+		
+		<p:column headerText="Nome" sortBy="#{pat.first_name}" filterBy="#{pat.first_name}">
+			<h:outputText value="#{pat.first_name}"/>
+		</p:column>
+		
+		<p:column headerText="Sobrenome" sortBy="#{pat.last_name}" filterBy="#{pat.last_name}">
+			<h:outputText value="#{pat.last_name}"/>
+		</p:column>
+		
+		<p:column headerText="CPF" sortBy="#{pat.cpf}" filterBy="#{pat.cpf}">
+			<h:outputText value="#{pat.cpf}"/>
+		</p:column>
+		
+		<p:column headerText="Data de Nascimento" sortBy="#{pat.birthdate}" filterBy="#{pat.birthdate}">
+			<h:outputText value="#{pat.birthdate}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+	</p:panel>	
+    </ui:define>
+</ui:composition>

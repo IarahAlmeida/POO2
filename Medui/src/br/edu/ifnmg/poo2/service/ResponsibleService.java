@@ -26,6 +26,16 @@ public class ResponsibleService implements Serializable{
 	}
 	
 	@Transactional
+	public void excluir(Responsible responsible) {
+		entityManager.remove(entityManager.contains(responsible) ? responsible : entityManager.merge(responsible));
+	}
+	
+	@Transactional
+	public Responsible buscar(Long id) {
+		return entityManager.find(Responsible.class, id);
+	}
+	
+	@Transactional
 	public List<Responsible> getResponsibles() {
 		TypedQuery<Responsible> query = entityManager.createNamedQuery("allResponsible", Responsible.class);
 		return query.getResultList();

@@ -39,7 +39,7 @@ public class Appointment implements Serializable{
 	@JoinColumn(name = "doctort_id", foreignKey = @ForeignKey(name = "fk_doctor"))
 	private Doctor doctor;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date date_time;
 

@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+    </h:head>
+ 
+    <h:body>
+        <h:form>
+        	<p:panelGrid columns="2">
+        		<p:outputLabel value="Nome do País:"/>
+        		<p:inputText value="#{questaoListaView.selectedCountry}"/>
+        		<h:commandButton value="Informar Continente" action="#{questaoListaView.executar}"/>
+        	</p:panelGrid>
+        </h:form>
+        
+        <h1>Continente</h1>
+        <p:panelGrid>
+        	<p:outputLabel value="#{questaoListaView.respContinent}"/>
+        </p:panelGrid>
+    </h:body>
+</html>
