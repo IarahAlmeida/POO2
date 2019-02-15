@@ -7,4 +7,84 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
     
+    <ui:define name="content">
+    <h:form id="frmViewConsult">
+	    <p:panel header="Lista de Consultas" style="width:95%; font-size:14px">
+	    	<p:dataTable emptyMessage="Nenhuma Consulta Marcada."
+	    	var="consult" value="#{buscarConsultaView.consultas}" paginator="true" rows="5"
+	    	filteredValue="#{buscarConsultaView.consultasFiltradas}" widgetVar="tblViewConsult"
+	    	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+	    	rowsPerPageTemplate="5,10" id="consultaTable" rowKey="#{consult.id}" style="margin-bottom:0">
+	    	
+	    	<p:column headerText="Paciente Nome" sortBy="#{consult.patient.first_name}" filterBy="#{consult.patient.first_name}">
+				<h:outputText value="#{consult.patient.first_name}"/>
+			</p:column>
+			
+			<p:column headerText="Paciente Sobrenome" sortBy="#{consult.patient.last_name}" filterBy="#{consult.patient.last_name}">
+				<h:outputText value="#{consult.patient.last_name}"/>
+			</p:column>
+			
+			<p:column headerText="Médico Nome" sortBy="#{consult.doctor.first_name}" filterBy="#{consult.doctor.first_name}">
+				<h:outputText value="#{consult.doctor.first_name}"/>
+			</p:column>
+			
+			<p:column headerText="Médico Sobrenome" sortBy="#{consult.doctor.last_name}" filterBy="#{consult.doctor.last_name}">
+				<h:outputText value="#{consult.doctor.last_name}"/>
+			</p:column>
+			
+			<p:column headerText="Médico Especialidade" sortBy="#{consult.doctor.specialty}" filterBy="#{consult.doctor.specialty}">
+				<h:outputText value="#{consult.doctor.specialty}"/>
+			</p:column>
+			
+			<p:column headerText="Data/Hora da Consulta" sortBy="#{consult.date_time}" filterBy="#{consult.date_time}">
+				<h:outputText value="#{consult.date_time}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Opções" style="text-align:center">
+				<p:button title="Editar Consulta" icon="ui-icon-pencil"
+				outcome="/view/appointment/update.xhtml">
+					<f:param name="codigo" value="#{consult.id}"/>
+				</p:button>
+			
+				<p:commandButton title="Excluir Consulta" icon="ui-icon-trash"
+				oncomplete="PF('dlgExcluirConsult').show();" update=":frmExcluirConsult:pnlExcluirConsult">
+					<f:setPropertyActionListener target="#{buscarConsultaView.selectedConsulta}" value="#{consult}"/>
+				</p:commandButton>
+			</p:column>		
+	    	</p:dataTable>
+	    </p:panel>
+    </h:form>
+    
+    <p:dialog widgetVar="dlgExcluirConsult" closable="false" draggable="false" resizable="false"
+	header="Excluir Consulta">
+		<h:form id="frmExcluirConsult">
+			<p:panelGrid id="pnlExcluirConsult" columns="2">
+				<h:outputLabel value="Nome do Paciente"/>
+				<h:outputText value="#{buscarConsultaView.selectedConsulta.patient.first_name}"/>
+				
+				<h:outputLabel value="Nome do Médico"/>
+				<h:outputText value="#{buscarConsultaView.selectedConsulta.doctor.first_name}"/>
+				
+				<h:outputLabel value="Especialidade do Médico"/>
+				<h:outputText value="#{buscarConsultaView.selectedConsulta.doctor.specialty}"/>
+				
+				<h:outputLabel value="Horário da Consulta"/>
+				<h:outputText value="#{buscarConsultaView.selectedConsulta.date_time}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+				</h:outputText>				
+				
+			</p:panelGrid>
+		
+			<p:panelGrid columns="2">
+				<p:commandButton value="Excluir" actionListener="#{buscarConsultaView.excluirConsulta}"
+				update=":frmViewConsult:consultaTable :msgGlobal" 
+				oncomplete="PF('dlgExcluirConsult').hide(); PF('tblViewConsult').clearFilters();"/>
+				<p:commandButton value="Cancelar" oncomplete="PF('dlgExcluirConsult').hide();"/>
+			</p:panelGrid>
+						
+		</h:form>
+	</p:dialog>
+    </ui:define>
 </ui:composition>

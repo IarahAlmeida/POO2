@@ -13,11 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
+	@NamedQuery(name = "allConsultas", // 
+	query = "select c from Appointment c")
 	
 })
 public class Appointment implements Serializable{
@@ -28,11 +31,11 @@ public class Appointment implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "patient_id", foreignKey = @ForeignKey(name = "fk_patient"))
 	private Patient patient;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "doctort_id", foreignKey = @ForeignKey(name = "fk_doctor"))
 	private Doctor doctor;
 	

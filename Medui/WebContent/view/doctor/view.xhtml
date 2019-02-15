@@ -14,7 +14,7 @@
 	    		var="doc" value="#{buscarMedicoView.doctors}" paginator="true" rows="5"
 	    		filteredValue="#{buscarMedicoView.doctorsFiltrados}" widgetVar="tblViewDoc"
 	    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-	    		rowsPerPageTemplate="5,10" id="doctorTable" rowKey="#{doc.id}" style="margin-bottom:0">>
+	    		rowsPerPageTemplate="5,10" id="doctorTable" rowKey="#{doc.id}" style="margin-bottom:0">
 				
 				<p:column headerText="Nome" sortBy="#{doc.first_name}" filterBy="#{doc.first_name}">
 					<h:outputText value="#{doc.first_name}"/>
